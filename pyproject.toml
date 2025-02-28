@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "face-detection"
+version = "0.1.0"
+description = ""
+authors = ["Michał Rosa <michalrosa23gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+django = "^5.1.6"
+channels = "^4.2.0"
+daphne = "^4.1.2"
+opencv-python-headless = "^4.11.0.86"
+pillow = "^11.1.0"
+numpy = "^2.2.3"
+python-magic = "^0.4.27"
+uuid = "^1.30"
+channels-redis = "^4.2.1"
+certifi = "^2025.1.31"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.4"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
