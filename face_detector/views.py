@@ -14,36 +14,31 @@ from .detector import FaceDetector
 
 @csrf_exempt
 def upload_image(request: HttpRequest) -> JsonResponse:
-    if request.method != "POST":
-        return JsonResponse({"error": "Only POST requests are allowed"}, status=405)
+    """
+    Handle the image upload request.
 
-    if "image" not in request.FILES:
-        return JsonResponse({"error": "No image file provided"}, status=400)
+    Args:
+        request: Django HTTP request object
 
-    image_file = request.FILES["image"]
-    file_content = image_file.read()
-    mime = magic.Magic(mime=True)
-    content_type = mime.from_buffer(file_content)
+    Returns:
+        JsonResponse: JSON response object
+    """
+    is_valid, error_response, validated_data = validate_request(request)
+    if not is_valid:
+        return error_response
 
-    if not content_type.startswith("image/"):
-        return JsonResponse(
-            {"error": f"Uploaded file is not an image. Detected type: {content_type}"},
-            status=400,
-        )
-
-    unique_id = str(uuid.uuid4())
-    file_extension = os.path.splitext(image_file.name)[1]
-    filename = f"upload_{unique_id}{file_extension}"
-
+    filename = validated_data["filename"]
     upload_path = Path("uploaded") / filename
 
-    file_path = default_storage.save(str(upload_path), ContentFile(file_content))
+    file_path = default_storage.save(
+        str(upload_path), ContentFile(validated_data["file_content"])
+    )
     file_full_path = os.path.join(settings.MEDIA_ROOT, file_path)
 
     try:
         detector = FaceDetector()
         processed_path, faces_count = detector.process_image(
-            Path(file_full_path), unique_id
+            Path(file_full_path), validated_data["unique_id"]
         )
 
         image_url = f"{request.scheme}://{request.get_host()}/media/{processed_path}"
@@ -58,9 +53,9 @@ def upload_image(request: HttpRequest) -> JsonResponse:
             },
         )
 
-        # Return a success response
         return JsonResponse(
-            {"success": True, "image_url": image_url, "faces_detected": faces_count}
+            {"success": True, "image_url": image_url, "faces_detected": faces_count},
+            status=200,
         )
 
     except FileNotFoundError as e:
@@ -119,12 +114,10 @@ def validate_request(
             None,
         )
 
-    # Generate unique filename
     unique_id = str(uuid.uuid4())
     file_extension = os.path.splitext(image_file.name)[1]
     filename = f"upload_{unique_id}{file_extension}"
 
-    # Return validated data
     return (
         True,
         None,
@@ -132,6 +125,5 @@ def validate_request(
             "file_content": file_content,
             "filename": filename,
             "unique_id": unique_id,
-            "file_extension": file_extension,
         },
     )

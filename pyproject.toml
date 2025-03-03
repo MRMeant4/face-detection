@@ -20,6 +20,12 @@ certifi = "^2025.1.31"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.3.4"
+pytest-django = "^4.10.0"
+pytest-asyncio = "^0.25.3"
+coverage = "^7.6.12"
+black = "^25.1.0"
+isort = "^6.0.1"
+flake8 = "^7.1.2"
 
 [build-system]
 requires = ["poetry-core"]

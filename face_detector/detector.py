@@ -27,8 +27,6 @@ class FaceDetector:
         """
         face_cascade_path = data.haarcascades + "haarcascade_frontalface_default.xml"
         self.face_cascade = CascadeClassifier(face_cascade_path)
-
-        # Create processed directory if it doesn't exist
         self.processed_dir = Path(settings.MEDIA_ROOT) / "processed"
         self.processed_dir.mkdir(parents=True, exist_ok=True)
 

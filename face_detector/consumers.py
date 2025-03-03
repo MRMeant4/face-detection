@@ -26,8 +26,6 @@ class FaceDetectionConsumer(AsyncWebsocketConsumer):
 
     async def receive(self, text_data):
         """Handle messages from WebSocket clients."""
-        # Not expecting messages from clients for this application
-        pass
 
     async def face_detection_notification(self, event):
         """Send face detection results to the WebSocket client."""
