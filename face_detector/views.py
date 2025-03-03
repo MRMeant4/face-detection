@@ -1,14 +1,16 @@
 import os
-from django.views.decorators.csrf import csrf_exempt
-from django.conf import settings
-from django.core.files.storage import default_storage
-from django.core.files.base import ContentFile
-from channels.layers import get_channel_layer
-from asgiref.sync import async_to_sync
-import magic
 import uuid
 from pathlib import Path
-from django.http import JsonResponse, HttpRequest
+
+import magic
+from asgiref.sync import async_to_sync
+from channels.layers import get_channel_layer
+from django.conf import settings
+from django.core.files.base import ContentFile
+from django.core.files.storage import default_storage
+from django.http import HttpRequest, JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+
 from .detector import FaceDetector
 
 

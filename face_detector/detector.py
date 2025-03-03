@@ -1,20 +1,19 @@
+import uuid
+from pathlib import Path
 from typing import Sequence, Tuple
+
+import numpy as np
 from cv2 import (
-    typing,
+    COLOR_BGR2GRAY,
     CascadeClassifier,
     cvtColor,
     data,
-    imwrite,
     imread,
+    imwrite,
     rectangle,
-    COLOR_BGR2GRAY,
+    typing,
 )
-import numpy as np
 from django.conf import settings
-import uuid
-import numpy as np
-import uuid
-from pathlib import Path
 
 
 class FaceDetector:
