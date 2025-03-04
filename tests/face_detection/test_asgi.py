@@ -1,6 +1,6 @@
 import pytest
-from channels.testing import WebsocketCommunicator
 from channels.routing import ProtocolTypeRouter, URLRouter
+from channels.testing import WebsocketCommunicator
 
 from face_detection.asgi import application
 from face_detection.routing import websocket_urlpatterns

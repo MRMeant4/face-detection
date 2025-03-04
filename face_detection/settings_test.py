@@ -1,5 +1,6 @@
-from .settings import *
 import tempfile
+
+from .settings import *
 
 DATABASES = {
     "default": {
@@ -10,10 +11,7 @@ DATABASES = {
 
 CHANNEL_LAYERS = {
     "default": {
-        "BACKEND": "channels_redis.core.RedisChannelLayer",
-        "CONFIG": {
-            "hosts": [("0.0.0.0", 6379)],
-        },
+        "BACKEND": "channels.layers.InMemoryChannelLayer",
     },
 }
 
