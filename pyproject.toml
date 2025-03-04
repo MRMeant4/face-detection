@@ -17,6 +17,7 @@ python-magic = "^0.4.27"
 uuid = "^1.30"
 channels-redis = "^4.2.1"
 certifi = "^2025.1.31"
+pytest-asyncio = "^0.25.3"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.3.4"
@@ -33,3 +34,17 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.isort]
 profile = "black"
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-ra -q --strict-markers"
+testpaths = [
+    "tests/face_detection",
+    "tests/face_detector",
+]
+DJANGO_SETTINGS_MODULE = "face_detection.settings_test"
+markers = """
+    unit: marks tests as unit tests
+    integration: marks tests as integration tests (requires external services)
+    slow: marks tests as slow (may take longer to run)
+    """

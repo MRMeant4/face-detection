@@ -66,6 +66,7 @@ curl -X POST -F "image=@face1.jpg" http://localhost:8282/image
 The JSON repsonse will contain the link to the image with detected faces marked with boxes.
 
 # TODOs
+- unit tests coverage
 - CI/CD workflows setup with Github Actions
   - packaging
   - linting/formatting
